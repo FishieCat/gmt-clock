@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GMT Clock</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      color: white;
+      font-family: Monospace, Monospace;
+      text-align: center;
+    }
+    .clock {
+      font-weight: bold;
+      white-space: nowrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock" id="clock"></div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const options = { timeZone: 'GMT', hour12: false };
+      const timeString = now.toLocaleTimeString('en-GB', options); // 24-hour format
+
+      const clockElement = document.getElementById('clock');
+      clockElement.textContent = timeString;
+
+      // Dynamically adjust font size based on the window size
+      const fontSize = Math.min(window.innerWidth, window.innerHeight) * 0.2; // Set font size to 20% of the smaller dimension
+      clockElement.style.fontSize = `${fontSize}px`;
+
+      // Ensure the clock doesn't overflow or distort
+      clockElement.style.lineHeight = `${window.innerHeight}px`; // Align vertically
+    }
+
+    // Update the clock every second
+    setInterval(updateClock, 1000);
+
+    // Initialize the clock on page load
+    updateClock();
+
+    // Adjust clock size on window resize
+    window.addEventListener('resize', updateClock);
+  </script>
+</body>
+</html>
